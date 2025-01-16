@@ -2,6 +2,7 @@ package com.lalodev.basicstatecodelab
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+
 @Composable
 fun WaterCounter(modifier: Modifier = Modifier) {
     Column(
@@ -27,7 +29,6 @@ fun WaterCounter(modifier: Modifier = Modifier) {
     ) {
         /*REMEMBER ALMACENA UN VALOR INCLUSO ENTRE RECOMPOSICIONES ASI EVITAMOS QUE LAS VARIABLES SE RESETEEN */
         var count by remember { mutableIntStateOf(0) }
-
         // el texto aparece cuando el contador es mayor que cero
         if (count > 0) {
             Text("You've had $count glasses.")
@@ -56,7 +57,46 @@ fun WaterCounter(modifier: Modifier = Modifier) {
 
  */
 
+// WATER COUNTER CON TASK ITEM
 
+/*
+@Composable
+fun WaterCounter(modifier: Modifier = Modifier) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.padding(16.dp)
+    ) {
+        /*REMEMBER ALMACENA UN VALOR INCLUSO ENTRE RECOMPOSICIONES ASI EVITAMOS QUE LAS VARIABLES SE RESETEEN */
+        var count by remember { mutableIntStateOf(0) }
+
+        // el texto aparece cuando el contador es mayor que cero
+        if (count > 0) {
+            Text("You've had $count glasses.")
+
+            // estado que va a controlar si se muestra la tarea
+            var showTask by remember { mutableStateOf(true) }
+            if(showTask){
+                WellnessTaskItem("Tarea wellness", onClose = { showTask = false } )
+            }
+        }
+        Row(
+            modifier = Modifier.padding(top=8.dp)
+        ){
+
+            // cuando el contador llega a 10 el boton se desabilita
+            Button(onClick = { count++ }, Modifier.padding(top = 8.dp), enabled = count < 10) {
+                Text("Add one")
+            }
+
+            Button(onClick = { count = 0}, Modifier.padding(start = 8.dp, top = 8.dp), enabled = count > 0) {
+                Text("Clear count")
+            }
+
+        }
+    }
+}
+ */
 
 @Preview(showBackground = true)
 @Composable
