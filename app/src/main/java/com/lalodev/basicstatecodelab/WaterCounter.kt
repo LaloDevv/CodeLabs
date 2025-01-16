@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +29,9 @@ fun WaterCounter(modifier: Modifier = Modifier) {
         modifier = modifier.padding(16.dp)
     ) {
         /*REMEMBER ALMACENA UN VALOR INCLUSO ENTRE RECOMPOSICIONES ASI EVITAMOS QUE LAS VARIABLES SE RESETEEN */
-        var count by remember { mutableIntStateOf(0) }
+        // PERO REMEMBER NO RECUERDA EL VALOR EN RECONSTRUCCIONES DE ACTIVITIES COMO ROTACIONES DE PANTALLA
+        // PARA ELLO PODEMOS USAR 'rememberSaveable' que guarda el valor en un Bundle(paquete) y luego lo recupera
+        var count by rememberSaveable { mutableIntStateOf(0) }
         // el texto aparece cuando el contador es mayor que cero
         if (count > 0) {
             Text("You've had $count glasses.")
