@@ -39,11 +39,12 @@ fun WellnessTaskList(
     modifier: Modifier = Modifier,
     list: List<WellnessTask> = remember { getWellnessTasks() }
 ){
-
+    // para guardar el estado de la lista, por ejemplo la posicion de desplazamiento
+    val listState = rememberSaveable(saver = LazyListState.Saver) { LazyListState() }
 
     LazyColumn(
         modifier = modifier,
-
+        state = listState
     )  {
         items(list){ task ->
             WellnessTaskItem(taskName = task.label, modifier)
